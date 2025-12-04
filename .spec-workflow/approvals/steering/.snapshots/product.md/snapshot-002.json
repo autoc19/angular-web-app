@@ -1,0 +1,16 @@
+{
+  "id": "snapshot_1764838017169_aijgxvs2a",
+  "approvalId": "approval_1764837861701_u6q5ux2qd",
+  "approvalTitle": "Product Overview - Steering Document",
+  "version": 2,
+  "timestamp": "2025-12-04T08:46:57.169Z",
+  "trigger": "approved",
+  "status": "pending",
+  "content": "# Product Overview\r\n\r\n## Product Purpose\r\n\r\nThis is an Angular v21 enterprise-grade web application built on the **Minimalist Router-First Architecture**. The application serves as a foundation for scalable, maintainable, and high-performance business applications.\r\n\r\n## Target Users\r\n\r\n- **Enterprise Development Teams**: Building complex, data-driven web applications\r\n- **AI Code Generation Agents**: Following strict architectural rules for consistent code output\r\n\r\n## Key Features\r\n\r\n1. **Zoneless Architecture**: Leveraging Angular v21's signal-based reactivity for optimal performance\r\n2. **Router-First Design**: URL structure drives application architecture\r\n3. **Hybrid Reactive Pattern**: RxJS for async orchestration, Signals for state and view binding\r\n\r\n## Business Objectives\r\n\r\n- Deliver a maintainable, scalable codebase that follows enterprise-grade standards\r\n- Enable rapid feature development through consistent patterns and clear boundaries\r\n- Ensure optimal runtime performance through modern Angular v21 features\r\n\r\n## Success Metrics\r\n\r\n- **Code Consistency**: 100% adherence to architectural rules (no violations)\r\n- **Performance**: All components use OnPush change detection\r\n- **Maintainability**: Zero circular dependencies between modules\r\n\r\n## Product Principles\r\n\r\n1. **Constitution Over Convention**: Architectural rules are absolute. Violations are bugs.\r\n2. **Signals First**: State management uses Signals; RxJS is internal plumbing only.\r\n3. **Smart/Dumb Separation**: Clear boundaries between container and presentational components.\r\n4. **Modern Syntax Only**: No legacy Angular patterns (decorators, structural directives).\r\n\r\n## Future Vision\r\n\r\n### Potential Enhancements\r\n- **SSR/Hydration**: Incremental hydration for optimal Core Web Vitals\r\n- **Micro-frontends**: Module federation for team scalability\r\n- **AI-Assisted Development**: Full spec-driven development workflow\r\n",
+  "fileStats": {
+    "size": 1923,
+    "lines": 43,
+    "lastModified": "2025-12-04T08:44:15.225Z"
+  },
+  "comments": []
+}
