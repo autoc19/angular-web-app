@@ -217,10 +217,37 @@ This spec directly supports the core objectives defined in `product.md`:
 
 ---
 
+### Requirement 9: Quality Assurance (Two-Pillar Strategy)
+
+**User Story:** As a developer, I want the skeleton to establish the correct testing patterns from day one, so that all future development follows TDD for logic and E2E for user journeys.
+
+#### Acceptance Criteria
+
+1. WHEN a Service is created (AuthService, Guards, Interceptors) THEN the system SHALL have a corresponding `.spec.ts` file created BEFORE the implementation.
+
+2. WHEN the skeleton is complete THEN the system SHALL have Vitest unit tests for:
+   - AuthService: Signal state transitions (login updates currentUser, logout clears it)
+   - AuthGuard: Route protection logic
+   - Error handling utilities
+
+3. WHEN the skeleton is complete THEN the system SHALL have E2E tests (Playwright) for:
+   - Critical Path: User can navigate from login to home
+   - Layout Verification: Admin layout renders correctly
+   - 404 Handling: Unknown routes show NotFound page
+
+4. WHEN a Component is created (Layout, Feature pages) THEN the system SHALL NOT have a `.spec.ts` file for it.
+
+5. IF `pnpm test` is run THEN all unit tests SHALL pass.
+
+6. IF `pnpm e2e` is run THEN all E2E tests SHALL pass.
+
+---
+
 ## Acceptance Test
 
 **Final Validation**: After implementing this spec, the following MUST be true:
 
+### Functional Validation
 1. `pnpm start` successfully starts the dev server without errors
 2. Browser shows a styled home page with admin layout (header, sidebar, footer)
 3. Clicking navigation items switches routes without page reload
@@ -228,3 +255,9 @@ This spec directly supports the core objectives defined in `product.md`:
 5. Visiting `/auth/login` shows blank layout
 6. Visiting `/unknown-route` shows styled 404 page
 7. All imports use path aliases (`@core/`, `@shared/`, `@features/`)
+
+### Quality Validation (Two-Pillar)
+8. `pnpm test` runs Vitest and all Service/Guard specs pass
+9. `pnpm e2e` runs Playwright and all critical path tests pass
+10. NO `.spec.ts` files exist for any Component (Smart or Dumb)
+11. ALL `.spec.ts` files exist for Services, Guards, and Interceptors

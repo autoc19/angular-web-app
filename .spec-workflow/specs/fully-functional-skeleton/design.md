@@ -411,23 +411,78 @@ body {
 
 ---
 
-## Testing Strategy
+## Testing Strategy (Two-Pillar: "中間鬆，兩頭緊")
 
-### Unit Testing (Vitest)
+### Philosophy
 
-- **AuthService**: Test Signal state transitions (login/logout)
-- **Interceptors**: Test request/response transformations
-- **Guards**: Test route protection logic
+We do NOT test framework features (Angular/PrimeNG works). We test **our business logic** and **critical user journeys**.
 
-### Integration Testing
+### Pillar 1: Unit Testing with TDD (Vitest)
 
-- **Layout Components**: Verify header/sidebar/footer render correctly
-- **Routing**: Verify lazy loading and guard behavior
+**Target**: Services, Guards, Interceptors, Utils — anything with logic.
 
-### End-to-End Testing (Future)
+**Workflow**: Write `.spec.ts` FIRST, then implement to pass tests.
 
-- **User Journey**: Navigate through home, login, 404 pages
-- **Responsive**: Verify layout adapts to viewport sizes
+| Artifact | Test File | What to Test |
+|----------|-----------|---------------|
+| `auth.service.ts` | `auth.service.spec.ts` | Signal state: login() updates currentUser, logout() clears it |
+| `auth.guard.ts` | `auth.guard.spec.ts` | Returns true when logged in, redirects when not |
+| `auth.interceptor.ts` | `auth.interceptor.spec.ts` | Attaches token header, handles 401 |
+| `error.interceptor.ts` | `error.interceptor.spec.ts` | Transforms errors to consistent format |
+| `error.handler.ts` | `error.handler.spec.ts` | Catches and logs errors |
+
+### Pillar 2: E2E Testing (Playwright)
+
+**Target**: Completed features — critical user journeys only.
+
+**Workflow**: After feature is assembled, write E2E test with Page Object Model.
+
+| Test File | What to Test |
+|-----------|---------------|
+| `navigation.e2e.ts` | User can navigate between home, login, and 404 pages |
+| `layout.e2e.ts` | Admin layout renders header, sidebar, footer correctly |
+| `auth-flow.e2e.ts` | User can log in and see home page |
+
+### What We Do NOT Test
+
+| Artifact | Why No Unit Test |
+|----------|------------------|
+| `HeaderComponent` | Dumb component — TestBed overhead too high, value too low |
+| `SidebarComponent` | Dumb component — validated by E2E |
+| `FooterComponent` | Dumb component — validated by E2E |
+| `AdminLayoutComponent` | Smart component — logic tested via AuthService specs |
+| `HomeComponent` | Feature component — validated by E2E |
+| `LoginComponent` | Feature component — validated by E2E |
+| `NotFoundComponent` | Feature component — validated by E2E |
+
+### Test File Structure
+
+```
+angular-web-app/
+├── src/app/core/
+│   ├── auth/
+│   │   ├── auth.service.ts
+│   │   ├── auth.service.spec.ts      ← TDD: spec first
+│   │   ├── auth.guard.ts
+│   │   ├── auth.guard.spec.ts        ← TDD: spec first
+│   │   ├── auth.interceptor.ts
+│   │   └── auth.interceptor.spec.ts  ← TDD: spec first
+│   └── services/
+│       ├── error.handler.ts
+│       ├── error.handler.spec.ts     ← TDD: spec first
+│       ├── error.interceptor.ts
+│       └── error.interceptor.spec.ts ← TDD: spec first
+├── e2e/
+│   ├── pages/
+│   │   ├── home.page.ts              ← Page Object
+│   │   ├── login.page.ts             ← Page Object
+│   │   └── layout.page.ts            ← Page Object
+│   └── specs/
+│       ├── navigation.e2e.ts         ← E2E test
+│       ├── layout.e2e.ts             ← E2E test
+│       └── auth-flow.e2e.ts          ← E2E test
+└── ...
+```
 
 ---
 
