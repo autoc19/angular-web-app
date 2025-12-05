@@ -1,0 +1,22 @@
+{
+  "filePath": ".spec-workflow/specs/fully-functional-skeleton/design.md",
+  "currentVersion": 2,
+  "snapshots": [
+    {
+      "version": 1,
+      "filename": "snapshot-001.json",
+      "timestamp": "2025-12-05T00:31:55.540Z",
+      "trigger": "initial",
+      "approvalId": "approval_1764894715536_w5mr5lh46",
+      "approvalTitle": "Design: Fully Functional Skeleton"
+    },
+    {
+      "version": 2,
+      "filename": "snapshot-002.json",
+      "timestamp": "2025-12-05T00:33:04.958Z",
+      "trigger": "approved",
+      "approvalId": "approval_1764894715536_w5mr5lh46",
+      "approvalTitle": "Design: Fully Functional Skeleton"
+    }
+  ]
+}
