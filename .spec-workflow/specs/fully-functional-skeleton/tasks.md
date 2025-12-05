@@ -11,13 +11,13 @@
 
 ### 1.1 Developer Experience Setup
 
-- [ ] 1. Configure path aliases in tsconfig
+- [x] 1. Configure path aliases in tsconfig
   - **Files**: `tsconfig.json`, `tsconfig.app.json`
   - Configure `@core/*`, `@shared/*`, `@features/*` path aliases
   - **Success**: Path aliases resolve correctly, IDE provides autocomplete
   - _Requirements: 8.1, 8.2, 8.3, 8.4_
 
-- [ ] 2. Create directory structure with placeholder files
+- [x] 2. Create directory structure with placeholder files
   - **Files**: Multiple `.gitkeep` files across `core/`, `shared/`, `features/` directories
   - Include `e2e/pages/` and `e2e/specs/` directories for E2E tests
   - **Success**: All directories exist as specified in design.md
@@ -25,14 +25,14 @@
 
 ### 1.2 Testing Infrastructure
 
-- [ ] 3. Configure Vitest for unit testing
+- [x] 3. Configure Vitest for unit testing
   - **Files**: `vitest.config.ts`, `src/test-setup.ts`
   - Configure Vitest with Angular testing utilities
   - Add `pnpm test` script to package.json
   - **Success**: `pnpm test` runs without errors (no tests yet)
   - _Requirements: 9.5_
 
-- [ ] 4. Configure Playwright for E2E testing
+- [x] 4. Configure Playwright for E2E testing
   - **Files**: `playwright.config.ts`, `e2e/` directory structure
   - Configure Playwright with base URL pointing to dev server
   - Add `pnpm e2e` script to package.json
@@ -44,13 +44,13 @@
 
 ## Phase 2: Visual System Setup
 
-- [ ] 5. Configure global styles with Tailwind CSS
+- [x] 5. Configure global styles with Tailwind CSS
   - **File**: `src/styles.css`
   - Import Tailwind CSS v4, CSS reset, global fonts
   - **Success**: Tailwind utilities work globally
   - _Requirements: 2.1, 2.3, 2.4_
 
-- [ ] 6. Configure PrimeNG theme in app.config.ts
+- [x] 6. Configure PrimeNG theme in app.config.ts
   - **File**: `src/app/app.config.ts`
   - Add `providePrimeNG()` with Aura theme
   - **Success**: PrimeNG components render with Aura theme
@@ -66,7 +66,7 @@
 
 ### 3.1 Auth Types (No TDD - Pure Types)
 
-- [ ] 7. Create auth types and interfaces
+- [x] 7. Create auth types and interfaces
   - **File**: `src/app/core/auth/auth.types.ts`
   - Define `User`, `LoginCredentials` interfaces
   - **Success**: Types compile without errors
@@ -74,7 +74,7 @@
 
 ### 3.2 AuthService (TDD)
 
-- [ ] 8. **[SPEC FIRST]** Write AuthService unit tests
+- [x] 8. **[SPEC FIRST]** Write AuthService unit tests
   - **File**: `src/app/core/auth/auth.service.spec.ts`
   - Test cases:
     - `login()` should update `currentUser` signal with user data
@@ -85,7 +85,7 @@
   - **Success**: Tests compile but FAIL (no implementation yet)
   - _Requirements: 9.1, 9.2_
 
-- [ ] 9. Implement AuthService to pass tests
+- [x] 9. Implement AuthService to pass tests
   - **File**: `src/app/core/auth/auth.service.ts`
   - Implement Signal-based state management
   - **Success**: All AuthService tests PASS
@@ -93,7 +93,7 @@
 
 ### 3.3 AuthGuard (TDD)
 
-- [ ] 10. **[SPEC FIRST]** Write AuthGuard unit tests
+- [x] 10. **[SPEC FIRST]** Write AuthGuard unit tests
   - **File**: `src/app/core/auth/auth.guard.spec.ts`
   - Test cases:
     - Should return true when user is logged in
@@ -101,7 +101,7 @@
   - **Success**: Tests compile but FAIL
   - _Requirements: 9.1, 9.2_
 
-- [ ] 11. Implement AuthGuard to pass tests
+- [x] 11. Implement AuthGuard to pass tests
   - **File**: `src/app/core/auth/auth.guard.ts`
   - Implement functional guard with AuthService injection
   - **Success**: All AuthGuard tests PASS
@@ -109,7 +109,7 @@
 
 ### 3.4 AuthInterceptor (TDD)
 
-- [ ] 12. **[SPEC FIRST]** Write AuthInterceptor unit tests
+- [x] 12. **[SPEC FIRST]** Write AuthInterceptor unit tests
   - **File**: `src/app/core/auth/auth.interceptor.spec.ts`
   - Test cases:
     - Should pass through requests when no token
@@ -118,7 +118,7 @@
   - **Success**: Tests compile but FAIL
   - _Requirements: 9.1, 9.2_
 
-- [ ] 13. Implement AuthInterceptor to pass tests
+- [x] 13. Implement AuthInterceptor to pass tests
   - **File**: `src/app/core/auth/auth.interceptor.ts`
   - Implement functional interceptor
   - **Success**: All AuthInterceptor tests PASS
@@ -126,7 +126,7 @@
 
 ### 3.5 APP_CONFIG (No TDD - Pure Config)
 
-- [ ] 14. Create APP_CONFIG injection token
+- [x] 14. Create APP_CONFIG injection token
   - **File**: `src/app/core/config/app-config.ts`
   - Define `AppConfig` interface and InjectionToken
   - **Success**: Token is injectable
@@ -134,7 +134,7 @@
 
 ### 3.6 Error Handling (TDD)
 
-- [ ] 15. **[SPEC FIRST]** Write GlobalErrorHandler unit tests
+- [x] 15. **[SPEC FIRST]** Write GlobalErrorHandler unit tests
   - **File**: `src/app/core/services/error.handler.spec.ts`
   - Test cases:
     - Should log error to console with timestamp
@@ -142,13 +142,13 @@
   - **Success**: Tests compile but FAIL
   - _Requirements: 9.1, 9.2_
 
-- [ ] 16. Implement GlobalErrorHandler to pass tests
+- [x] 16. Implement GlobalErrorHandler to pass tests
   - **File**: `src/app/core/services/error.handler.ts`
   - Implement ErrorHandler interface
   - **Success**: All GlobalErrorHandler tests PASS
   - _Requirements: 5.1_
 
-- [ ] 17. **[SPEC FIRST]** Write ErrorInterceptor unit tests
+- [x] 17. **[SPEC FIRST]** Write ErrorInterceptor unit tests
   - **File**: `src/app/core/services/error.interceptor.spec.ts`
   - Test cases:
     - Should pass through successful responses
@@ -157,7 +157,7 @@
   - **Success**: Tests compile but FAIL
   - _Requirements: 9.1, 9.2_
 
-- [ ] 18. Implement ErrorInterceptor to pass tests
+- [x] 18. Implement ErrorInterceptor to pass tests
   - **File**: `src/app/core/services/error.interceptor.ts`
   - Implement functional interceptor with catchError
   - **Success**: All ErrorInterceptor tests PASS
@@ -165,7 +165,7 @@
 
 ### 3.7 Unit Test Verification Checkpoint
 
-- [ ] 19. Verify all unit tests pass
+- [x] 19. Verify all unit tests pass
   - Run `pnpm test`
   - All 5 spec files should pass:
     - `auth.service.spec.ts`
@@ -183,36 +183,36 @@
 > **NOTE**: These components have NO `.spec.ts` files per Two-Pillar Strategy.
 > UI correctness is validated by E2E tests in Phase 7.
 
-- [ ] 20. Create NavItem model
+- [x] 20. Create NavItem model
   - **File**: `src/app/core/layout/sidebar/nav-item.model.ts`
   - **Success**: Interface compiles
   - _Requirements: 3.2_
 
-- [ ] 21. Create HeaderComponent
+- [x] 21. Create HeaderComponent
   - **File**: `src/app/core/layout/header/header.component.ts`
   - **NO SPEC FILE** - validated by E2E
   - **Success**: Component renders header bar
   - _Requirements: 3.2_
 
-- [ ] 22. Create SidebarComponent
+- [x] 22. Create SidebarComponent
   - **File**: `src/app/core/layout/sidebar/sidebar.component.ts`
   - **NO SPEC FILE** - validated by E2E
   - **Success**: Component renders nav items
   - _Requirements: 3.2, 3.3, 3.4_
 
-- [ ] 23. Create FooterComponent
+- [x] 23. Create FooterComponent
   - **File**: `src/app/core/layout/footer/footer.component.ts`
   - **NO SPEC FILE** - validated by E2E
   - **Success**: Component renders footer
   - _Requirements: 3.2_
 
-- [ ] 24. Create AdminLayoutComponent
+- [x] 24. Create AdminLayoutComponent
   - **File**: `src/app/core/layout/admin-layout/admin-layout.component.ts`
   - **NO SPEC FILE** - validated by E2E
   - **Success**: Layout composes all sections
   - _Requirements: 3.2, 3.3, 3.4_
 
-- [ ] 25. Create BlankLayoutComponent
+- [x] 25. Create BlankLayoutComponent
   - **File**: `src/app/core/layout/blank-layout/blank-layout.component.ts`
   - **NO SPEC FILE** - validated by E2E
   - **Success**: Minimal layout renders
@@ -224,19 +224,19 @@
 
 > **NOTE**: Feature components have NO `.spec.ts` files per Two-Pillar Strategy.
 
-- [ ] 26. Create HomeComponent and routes
+- [x] 26. Create HomeComponent and routes
   - **Files**: `home.component.ts`, `home.routes.ts`
   - **NO SPEC FILE** - validated by E2E
   - **Success**: Home page renders
   - _Requirements: 7.1, 7.2_
 
-- [ ] 27. Create LoginComponent and routes
+- [x] 27. Create LoginComponent and routes
   - **Files**: `login.component.ts`, `auth.routes.ts`
   - **NO SPEC FILE** - validated by E2E
   - **Success**: Login form renders
   - _Requirements: 7.1, 7.2_
 
-- [ ] 28. Create NotFoundComponent
+- [x] 28. Create NotFoundComponent
   - **File**: `not-found.component.ts`
   - **NO SPEC FILE** - validated by E2E
   - **Success**: 404 page renders
@@ -246,19 +246,19 @@
 
 ## Phase 6: Application Wiring
 
-- [ ] 29. Configure app.routes.ts with complete routing
+- [x] 29. Configure app.routes.ts with complete routing
   - **File**: `src/app/app.routes.ts`
   - Configure layouts, guards, lazy loading
   - **Success**: All routes work correctly
   - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
 
-- [ ] 30. Update app.config.ts with all providers
+- [x] 30. Update app.config.ts with all providers
   - **File**: `src/app/app.config.ts`
   - Register interceptors, error handler, config
   - **Success**: All providers registered
   - _Requirements: 5.1, 5.2, 5.3, 5.4, 6.1_
 
-- [ ] 31. Update app.component.ts as minimal shell
+- [x] 31. Update app.component.ts as minimal shell
   - **File**: `src/app/app.component.ts`
   - Template contains only router-outlet
   - **Success**: Clean minimal shell
@@ -272,7 +272,7 @@
 
 ### 7.1 Page Objects
 
-- [ ] 32. Create Page Objects for E2E tests
+- [x] 32. Create Page Objects for E2E tests
   - **Files**:
     - `e2e/pages/layout.page.ts` - AdminLayout selectors (header, sidebar, footer)
     - `e2e/pages/home.page.ts` - Home page selectors
@@ -283,7 +283,7 @@
 
 ### 7.2 E2E Test Specs
 
-- [ ] 33. Write navigation E2E test
+- [x] 33. Write navigation E2E test
   - **File**: `e2e/specs/navigation.e2e.ts`
   - Test cases:
     - User can navigate from home to login
@@ -293,7 +293,7 @@
   - **Success**: Navigation tests pass
   - _Requirements: 9.3_
 
-- [ ] 34. Write layout E2E test
+- [x] 34. Write layout E2E test
   - **File**: `e2e/specs/layout.e2e.ts`
   - Test cases:
     - Admin layout shows header with app name
@@ -303,7 +303,7 @@
   - **Success**: Layout tests pass
   - _Requirements: 9.3_
 
-- [ ] 35. Write auth flow E2E test
+- [x] 35. Write auth flow E2E test
   - **File**: `e2e/specs/auth-flow.e2e.ts`
   - Test cases:
     - User can fill login form
@@ -316,17 +316,17 @@
 
 ## Phase 8: Final Verification
 
-- [ ] 36. Run all unit tests
+- [x] 36. Run all unit tests
   - Command: `pnpm test`
   - **Success**: All Service/Guard/Interceptor specs pass
   - _Requirements: 9.5_
 
-- [ ] 37. Run all E2E tests
+- [x] 37. Run all E2E tests
   - Command: `pnpm e2e`
   - **Success**: All E2E specs pass
   - _Requirements: 9.6_
 
-- [ ] 38. Verify no component spec files exist
+- [x] 38. Verify no component spec files exist
   - Check that NO `.spec.ts` files exist for:
     - `HeaderComponent`
     - `SidebarComponent`
@@ -339,7 +339,7 @@
   - **Success**: Zero component spec files
   - _Requirements: 9.4, 9.10_
 
-- [ ] 39. Final smoke test
+- [x] 39. Final smoke test
   - Run `pnpm start`
   - Manually verify:
     - Home page renders with admin layout
