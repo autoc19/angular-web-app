@@ -26,6 +26,7 @@ This is an Angular v21 enterprise-grade web application built on the **Minimalis
 - **Code Consistency**: 100% adherence to architectural rules (no violations)
 - **Performance**: All components use OnPush change detection
 - **Maintainability**: Zero circular dependencies between modules
+- **Quality Assurance**: 100% unit test coverage on Services/Stores; Zero unit tests on Components
 
 ## Product Principles
 
@@ -33,6 +34,7 @@ This is an Angular v21 enterprise-grade web application built on the **Minimalis
 2. **Signals First**: State management uses Signals; RxJS is internal plumbing only.
 3. **Smart/Dumb Separation**: Clear boundaries between container and presentational components.
 4. **Modern Syntax Only**: No legacy Angular patterns (decorators, structural directives).
+5. **Two-Pillar QA Strategy**: Test logic at the source (TDD for Services), validate UX at the end (E2E for features). **No unit tests for Components** — this is by design, not negligence.
 
 ## Future Vision
 

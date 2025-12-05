@@ -287,28 +287,64 @@ constructor() {
 
 *Source: QA Testing Standards & Angular v21 Testing Guide*
 
-### 3.1 Testing Strategy: Two-Pillar Approach
+### 3.1 Testing Strategy: Two-Pillar Approach ("中間鬆，兩頭緊")
+
+**Philosophy**: We do NOT test framework features (Angular/PrimeNG works). We test **our business logic** and **critical user journeys**.
 
 | Phase | Target | Tool | Action |
 |-------|--------|------|--------|
-| Logic Design | Services, Stores, Utils | **Vitest** | TDD - Write spec first |
+| Logic Design | Services, Stores, Utils, Pipes | **Vitest** | TDD - Write spec first |
 | UI Construction | Dumb Components | **Skip** | No unit tests |
-| Feature Integration | Smart Components | **Manual** | Developer verification |
-| Feature Completion | Critical Paths | **Playwright/Cypress** | E2E tests |
+| Feature Integration | Smart Components | **Skip** | No unit tests |
+| Feature Completion | Critical Paths | **Playwright/Cypress** | E2E tests (Page Object Model) |
 
-### 3.2 Component Testing with Harnesses
+#### What to Test in Services (Vitest)
+
+| Pattern | Test Assertion Example |
+|---------|------------------------|
+| **Signal State** | "Calling `login()` should update `user()` signal" |
+| **RxJS Behavior** | "The `search$` stream should debounce by 300ms" |
+| **Error Handling** | "On HTTP error, `error()` signal should be set" |
+| **Computed State** | "`filteredUsers()` should react to `filter()` changes" |
+
+#### AI Directive for Testing
+
+```
+When generating code:
+1. For Services/Stores/Utils/Pipes: ALWAYS generate .spec.ts FIRST (TDD)
+2. For Components (Smart or Dumb): NEVER generate .spec.ts files
+3. For completed features: Generate E2E tests using Page Object pattern
+4. Test Signal state changes, NOT implementation details
+```
+
+### 3.2 Component Harnesses (For Shared UI Library Only)
+
+> ⚠️ **IMPORTANT**: This section applies ONLY to reusable Shared UI components that are published as a library. For application-level components, **do NOT write unit tests** — use E2E instead.
+
+**When to Create Harnesses:**
+- You are building a **reusable component library** (like PrimeNG)
+- The component will be consumed by **external teams or projects**
+- You need to provide a **stable testing API** for consumers
+
+**When NOT to Create Harnesses:**
+- Application-level Dumb Components in `shared/ui/`
+- Feature-specific components
+- Any component that won't be published as a library
 
 ```typescript
-// ✅ REQUIRED: Use Component Harness, not querySelector
-it('should display user name', async () => {
-  const loader = TestbedHarnessEnvironment.loader(fixture);
-  const card = await loader.getHarness(UserCardHarness);
+// Example: Harness for a published UI library component
+// This is NOT for application-level testing
+export class ButtonHarness extends ComponentHarness {
+  static hostSelector = 'lib-button';
   
-  expect(await card.getName()).toBe('John Doe');
-});
-
-// ❌ FORBIDDEN: Direct DOM queries in tests
-fixture.nativeElement.querySelector('.name').textContent; // DO NOT USE
+  async click() {
+    return (await this.host()).click();
+  }
+  
+  async isDisabled() {
+    return (await this.host()).getProperty('disabled');
+  }
+}
 ```
 
 ### 3.3 Global Error Handler

@@ -24,6 +24,8 @@ You must enforce a **three-layer architecture**. Circular dependencies or cross-
 
 * **Rule:** Never import Feature modules here. Only imported by `app.config` or root routes.
 
+* **Testing:** Services in Core (AuthService, Guards) contain critical logic. **TDD is mandatory** — write Vitest specs first.
+
 ## **📂 `src/app/shared/` (The Reusable Layer)**
 
 * **Definition:** Reusable artifacts with **zero business logic**.
@@ -40,6 +42,8 @@ You must enforce a **three-layer architecture**. Circular dependencies or cross-
 
 * **Rule:** Components here must NOT inject Core services. Communication is strictly via `@Input()` (Signals) and `@Output()`.
 
+* **Testing:** **NO unit tests for Dumb Components.** TestBed overhead is too high, value is too low. UI correctness is validated via E2E only.
+
 ## **📂 `src/app/features/` (The Business Layer)**
 
 * **Definition:** The application's pages and business domains.
@@ -55,6 +59,10 @@ You must enforce a **three-layer architecture**. Circular dependencies or cross-
   * `ui/`: Feature-specific dumb components (optional, if not generic enough for Shared).
 
 * **Rule:** Features are lazy-loaded. Feature A cannot import from Feature B.
+
+* **Testing:** Smart Components orchestrate logic but do NOT require unit tests. Their correctness is validated by:
+  1. **Unit tests on the injected Services/Stores** (TDD)
+  2. **E2E tests on the completed feature** (Critical Path)
 
 ---
 
@@ -131,6 +139,28 @@ You must enforce a **three-layer architecture**. Circular dependencies or cross-
 * **Reactive Forms:** Use `FormControl` and `FormGroup`.
 
 * **Strict Typing:** Always use Typed Forms. Avoid `any`.
+
+---
+
+## **4. Testing Strategy by Layer (Two-Pillar Alignment)**
+
+This project follows the **"中間鬆，兩頭緊"** (Loose in the Middle, Tight at Both Ends) testing philosophy.
+
+| Layer | What to Test | How | Tool |
+| :---- | :---- | :---- | :---- |
+| **Core (Services/Stores)** | Business logic, Signal state changes, RxJS streams | **TDD — Spec First** | Vitest |
+| **Shared (UI Components)** | **SKIP** — No unit tests | N/A | N/A |
+| **Features (Smart Components)** | **SKIP** — No component unit tests | N/A | N/A |
+| **Completed Features** | Critical user journeys (Happy Path) | **E2E — Page Object Model** | Cypress/Playwright |
+
+### **AI Directive:**
+
+```
+When generating code:
+1. For Services/Stores: ALWAYS generate the .spec.ts file FIRST (TDD).
+2. For Components (Smart or Dumb): NEVER generate .spec.ts files.
+3. For completed features: Generate E2E tests using Page Object pattern.
+```
 
 ---
 

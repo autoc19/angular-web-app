@@ -50,6 +50,14 @@ angular-web-app/
 │   └── index.html
 │
 ├── docs/                            # Knowledge base
+├── e2e/                             # 🧪 E2E Tests (Playwright/Cypress)
+│   ├── pages/                       # Page Object Models
+│   │   ├── user-list.page.ts
+│   │   └── login.page.ts
+│   ├── specs/                       # E2E Test Specs
+│   │   ├── user-management.e2e.ts
+│   │   └── authentication.e2e.ts
+│   └── fixtures/                    # Test data
 ├── .spec-workflow/                  # Spec-driven development
 │   ├── steering/
 │   ├── specs/
@@ -73,7 +81,10 @@ angular-web-app/
 | **Directive** | `kebab-case.directive.ts` | `highlight.directive.ts` |
 | **Routes** | `kebab-case.routes.ts` | `users.routes.ts` |
 | **Harness** | `kebab-case.harness.ts` | `user-card.harness.ts` |
-| **Spec** | `kebab-case.spec.ts` | `user.service.spec.ts` |
+| **Spec (Service)** | `kebab-case.service.spec.ts` | `user.service.spec.ts` |
+| **Spec (Util/Pipe)** | `kebab-case.spec.ts` | `date-format.pipe.spec.ts` |
+| **E2E Test** | `kebab-case.e2e.ts` | `user-management.e2e.ts` |
+| **Page Object** | `kebab-case.page.ts` | `user-list.page.ts` |
 
 ### Code
 
@@ -193,6 +204,8 @@ export class UserCardComponent {
 ### Service File Structure
 
 ```typescript
+// ⚠️ TDD REQUIRED: Write user.service.spec.ts FIRST before implementing this file
+
 // 1. Imports
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -341,6 +354,40 @@ export const routes: Routes = [
   },
   { path: '**', redirectTo: '/dashboard' }
 ];
+```
+
+---
+
+## Testing File Guidelines (Two-Pillar Strategy)
+
+### What MUST Have `.spec.ts` Files (TDD)
+
+| Artifact | Spec Required | Reason |
+|----------|---------------|--------|
+| **Services** | ✅ **YES** | Business logic, Signal state, RxJS streams |
+| **Stores** | ✅ **YES** | State management logic |
+| **Utils** | ✅ **YES** | Pure functions, algorithms |
+| **Pipes** | ✅ **YES** | Data transformation logic |
+| **Validators** | ✅ **YES** | Form validation rules |
+| **Guards** | ✅ **YES** | Route protection logic |
+
+### What MUST NOT Have `.spec.ts` Files
+
+| Artifact | Spec Required | Reason |
+|----------|---------------|--------|
+| **Dumb Components** | ❌ **NO** | TestBed overhead too high, value too low |
+| **Smart Components** | ❌ **NO** | Logic tested via Service specs |
+| **Routes Config** | ❌ **NO** | Validated by E2E |
+| **Templates** | ❌ **NO** | Validated by E2E |
+
+### AI Directive for Test File Generation
+
+```
+When generating code:
+1. For *.service.ts → ALWAYS generate *.service.spec.ts FIRST (TDD)
+2. For *.pipe.ts → ALWAYS generate *.pipe.spec.ts FIRST
+3. For *.component.ts → NEVER generate *.component.spec.ts
+4. For completed features → Generate e2e/*.e2e.ts with Page Objects
 ```
 
 ---
